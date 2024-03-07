@@ -1,0 +1,22 @@
+{
+  "name": "bisrate-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/queenoko/bisrate-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/queenoko/bisrate-app/issues"
+  },
+  "homepage": "https://github.com/queenoko/bisrate-app#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
