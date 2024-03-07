@@ -5,14 +5,14 @@ var ejs = require('ejs')
 var engine = require('ejs-mate')
 const session = require('express-session')
 const mongoose = require('mongoose')
-const MongoStore = require('connect-mongo')(session)
+var MongoStore = require('connect-mongo')
 
 
 
 const app = express()
 
 // Connect MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/bisrate')
+mongoose.connect('mongodb://localhost/bisrate')
 
 // Middle wares
 app.use(express.static('public'))
@@ -27,8 +27,7 @@ app.use(session({
     secret: 'Thisismytestkey',
     resave: false,
     saveUninitialized: false,
-    //cookie: { secure: true }
-    store: new MongoStore({mongooseConnection: mongoose.connection})
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/bisrate' })
   }))
 
 
