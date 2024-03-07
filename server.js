@@ -13,7 +13,6 @@ const app = express()
 
 // Connect MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/bisrate')
-  .then(() => console.log('Connected!'));
 
 // Middle wares
 app.use(express.static('public'))
@@ -29,6 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     //cookie: { secure: true }
+    store: new MongoStore({mongooseConnection: mongoose.connection})
   }))
 
 
