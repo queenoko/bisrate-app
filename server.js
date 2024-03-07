@@ -8,10 +8,15 @@ var session = require('express-session')
 
 
 const app = express()
-app.use(myLo)
+// Middle wares
+app.session('ejs', engine)
+app.set('view engine', 'ejs')
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 
-
+// run server
 const port = 3000
 
 
