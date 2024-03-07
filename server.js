@@ -1,4 +1,12 @@
 const express = require('express')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var ejs = require('ejs')
+var engine = require('ejs-mate')
+var session = require('express-session')
+
+
+
 const app = express()
 const port = 3000
 
