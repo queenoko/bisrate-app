@@ -8,6 +8,10 @@ var session = require('express-session')
 
 
 const app = express()
+app.use(myLo)
+
+
+
 const port = 3000
 
 
