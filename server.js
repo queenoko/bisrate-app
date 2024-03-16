@@ -31,20 +31,10 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/bisrate' })
   }))
 
-
-// Route Methods
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
-app.get('/test', (req, res) => {
-  res.render('test')
-})
-
+  require('./routes/user')(app)
 
 // run server
 const port = 3000
-
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
