@@ -17,6 +17,8 @@ const app = express()
 // Connect MongoDB
 mongoose.connect('mongodb://localhost:27017/bisrate')
 
+require('./config/passport')
+
 // Middle wares
 app.use(express.static('public'))
 app.engine('ejs', engine)
