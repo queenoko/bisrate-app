@@ -7,6 +7,8 @@ var engine = require('ejs-mate')
 const session = require('express-session')
 var mongoose = require('mongoose')
 var MongoStore = require('connect-mongo')
+var passport = require('passport')
+var flash = require('connect-flash')
 
 
 //lunch express app
@@ -30,6 +32,11 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/bisrate' })
   }))
+
+  app.use(flash())
+
+  app.use(passport.initialize())
+  app.use(passport.session())
 
   require('./routes/user')(app)
 

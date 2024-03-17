@@ -12,8 +12,8 @@ module.exports = (app) => {
     });
    
 
-//     app.get('/login', (req, res) => {
-//         var errors = req.flash('error');
-//         res.render('user/login', {title: 'Login || Rate/Review Company', messages: errors, hasErrors: errors.length > 0});
-//     });
+    app.get('/login', (req, res) => {
+        //var errors = req.flash('error');
+        res.render('user/login', {title: 'Login || Rate/Review Company'});
+    });
 }

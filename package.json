@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://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@github.com/queenoko/bisrate-app.git"
   },
-  "author": "",
+  "author": "Queensly Udongwo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/queenoko/bisrate-app/issues"
@@ -18,12 +20,17 @@
   "homepage": "https://github.com/queenoko/bisrate-app#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.9",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.3",
     "express-session": "^1.18.0",
-    "mongoose": "^8.2.1"
+    "mongoose": "^8.2.1",
+    "passport": "^0.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
