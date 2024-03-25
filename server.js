@@ -32,7 +32,7 @@ app.use(session({
     secret: 'Thisismytestkey',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/bisrate' })
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost/bisrate' })
   }))
 
   app.use(flash())
@@ -40,7 +40,7 @@ app.use(session({
   app.use(passport.initialize())
   app.use(passport.session())
 
-  require('./routes/user')(app)
+  require('./routes/user')(app, passport)
 
 // run server
 const port = 3000
