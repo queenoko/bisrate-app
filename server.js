@@ -1,6 +1,7 @@
 const express = require('express')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+const { body, validationResult } = require('express-validator');
 var ejs = require('ejs')
 //const ejsLint = require('ejs-lint')
 var engine = require('ejs-mate')
@@ -26,6 +27,21 @@ app.set('view engine', 'ejs')
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+// Express-validator middleware
+
+app.use(
+  body('firstname', 'Fullname is Required').notEmpty(),
+  body('fullname', 'Fullname Must Not Be Less Than 5').isLength({min: 5}),
+  body('email', 'Email is Required').notEmpty(),
+  body('email', 'Email is Invalid').isEmail(),
+  body('password', 'Password is Required').notEmpty(),
+  body('password', 'Password Must Not Be Less Than 5').isLength({ min: 5 }),
+  body('password', 'Password Must Contain at least 1 Number').matches(/^(?=.*\d)(?=.*[a-z])[0-9a-z]{5,}$/, "i")
+  // Add more validations as needed
+);
+//app.use(validator());
+
 
 // save cookie session ID
 app.use(session({
