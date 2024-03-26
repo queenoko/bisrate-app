@@ -22,20 +22,49 @@ passport.use('local.signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, (req, email, password, done) => {
+    User.findOne({ 'email': email })
+        .then((user) => {
+            if (!user) {
+                // Hash the password before saving
+                const hashedPassword = User.encryptPassword(req.body.password);
 
-       User.findOne({'email':email})
-       .then((user) => {
-        if (!user) {
-            User.create({
-                fullname: req.body.fullname,
-                email: req.body.email,
-                password: User.encryptPassword(req.body.password)
-            })
-        }
+                // Create a new user with hashed password
+                User.create({
+                    fullname: req.body.fullname,
+                    email: req.body.email,
+                    password: hashedPassword
+                }).then(newUser => {
+                    return done(null, newUser);
+                }).catch(err => {
+                    return done(err);
+                });
+            } else {
+                return done(null, user);
+            }
+        })
+        .catch((err) => {
+            return done(err);
+        });
+}));
 
-        if (user) {
-            return done(null, user)
+passport.use('local.login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, email, password, done) => {
+
+    User.findOne({'email':email}, (err, user) => {
+        if(err){
+            return done(err);
         }
-       })
-       .catch((err) => console.log(err))
-}))
+        
+        var messages = [];
+        
+        if(!user || !user.validPassword(password)){
+            messages.push('Email Does Not Exist Or Password is Invalid')
+            return done(null, false, req.flash('error', messages));
+        }
+        
+        return done(null, user); 
+    });
+}));

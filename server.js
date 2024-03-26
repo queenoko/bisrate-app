@@ -3,7 +3,6 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 const { body, validationResult } = require('express-validator');
 var ejs = require('ejs')
-//const ejsLint = require('ejs-lint')
 var engine = require('ejs-mate')
 const session = require('express-session')
 var mongoose = require('mongoose')
@@ -15,6 +14,7 @@ var flash = require('connect-flash')
 //lunch express app
 const app = express()
 
+//mongoose.Promise = global.Promise();
 // Connect MongoDB
 mongoose.connect('mongodb://localhost:27017/bisrate')
 
@@ -31,7 +31,7 @@ app.use(bodyParser.json())
 // Express-validator middleware
 
 app.use(
-  body('firstname', 'Fullname is Required').notEmpty(),
+  body('fullname', 'Fullname is Required').notEmpty(),
   body('fullname', 'Fullname Must Not Be Less Than 5').isLength({min: 5}),
   body('email', 'Email is Required').notEmpty(),
   body('email', 'Email is Invalid').isEmail(),
