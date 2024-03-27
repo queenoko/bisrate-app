@@ -37,7 +37,7 @@ module.exports = (app, passport) => {
     }));
 
     app.get('/home', (req, res) => {
-        res.render('home', {title: 'Home || Rate/Review Company'});
+        res.render('home', {title: 'Home || Rate/Review Company', user: req.user});
     });
 
     app.get('/forgot', (req, res) => {
