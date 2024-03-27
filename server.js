@@ -19,6 +19,7 @@ const app = express()
 mongoose.connect('mongodb://localhost:27017/bisrate')
 
 require('./config/passport')
+require('./secret/secret')
 
 // Middle wares
 app.use(express.static('public'))

@@ -4,6 +4,8 @@ const smtpTransport = require('nodemailer-smtp-transport')
 const async = require('async')
 const crypto = require('crypto')
 var User = require('../models/user')
+var secret = require('../secret/secret')
+
 module.exports = (app, passport) => {
 
     app.get('/', (req, res, next) =>{
@@ -39,11 +41,56 @@ module.exports = (app, passport) => {
     });
 
     app.get('/forgot', (req, res) => {
-        res.render('user/forgot', {title: 'Request Password Reset'});
+        var errors = req.flash('error');
+        var info = req.flash('info');
+        res.render('user/forgot', {title: 'Request Password Reset', messages: errors, hasErrors: errors.length > 0, info: info, noErrors: info.length > 0});
 	});
 
-    app.post('/forgot', (req, res, next) => {
-        async.waterfall([
+    app.post('/forgot', async (req, res, next) => {
+        try {
+            const rand = await new Promise((resolve, reject) => {
+                crypto.randomBytes(20, (err, buf) => {
+                    if (err) reject(err);
+                    else resolve(buf.toString('hex'));
+                });
+            });
+    
+            const user = await User.findOne({ 'email': req.body.email });
+            if (!user) {
+                req.flash('error', 'No Account With That Email Exist Or Email is Invalid');
+                return res.redirect('/forgot');
+            }
+    
+            user.passwordResetToken = rand;
+            user.passwordResetExpires = Date.now() + 60 * 60 * 1000;
+    
+            await user.save();
+    
+            const smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: secret.auth.user,
+                    pass: secret.auth.pass
+                }
+            });
+    
+            const mailOptions = {
+                to: user.email,
+                from: 'Rate/Review My Business <' + secret.auth.user + '>',
+                subject: 'Rate/Review My Business Application Password Reset Token',
+                text: 'You have requested for password reset token. \n\n' +
+                    'Please click on the link to complete the process: \n\n' +
+                    'http://localhost:3000/reset/' + rand + '\n\n'
+            };
+    
+            await smtpTransport.sendMail(mailOptions);
+    
+            req.flash('info', 'A password reset token has been sent to ' + user.email);
+            res.redirect('/forgot');
+        } catch (err) {
+            next(err);
+        }
+    });
     
 }
 
