@@ -11,9 +11,19 @@
       <div class="text-center reg_msg">
            <h2 class="fancy"><span>Login</span></h2>
       </div><br>
-   
-       <div class="row signup">
-           
+
+        <div class="row signup">
+            <% if(hasErrors) {%>
+                <% for(var i = 0; i < messages.length; i++) {%>
+                    <div class="alert alert-danger">
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                           &times;
+                       </a>
+                       <%= messages[i] %>
+                        
+                    </div>
+                <% } %>
+            <% } %>
            
            <form method="POST" action="/login">
    
@@ -33,7 +43,8 @@
              </form>
    
              <div>
-                 <h4>Don't have an account? <a href="/signup">Sign Up</a></h4>
+                 <h4 class="pull-left">Don't have an account? <a href="/signup">Sign Up</a></h4>
+                 <h4 class="pull-right"><a href="/forgot">Forgot Your Password?</a></h4>
              </div>
    
    

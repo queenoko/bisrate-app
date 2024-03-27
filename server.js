@@ -30,16 +30,16 @@ app.use(bodyParser.json())
 
 // Express-validator middleware
 
-app.use(
-  body('fullname', 'Fullname is Required').notEmpty(),
-  body('fullname', 'Fullname Must Not Be Less Than 5').isLength({min: 5}),
-  body('email', 'Email is Required').notEmpty(),
-  body('email', 'Email is Invalid').isEmail(),
-  body('password', 'Password is Required').notEmpty(),
-  body('password', 'Password Must Not Be Less Than 5').isLength({ min: 5 }),
-  body('password', 'Password Must Contain at least 1 Number').matches(/^(?=.*\d)(?=.*[a-z])[0-9a-z]{5,}$/, "i")
-  // Add more validations as needed
-);
+// app.use(
+//   body('fullname', 'Fullname is Required').notEmpty(),
+//   body('fullname', 'Fullname Must Not Be Less Than 5').isLength({min: 5}),
+//   body('email', 'Email is Required').notEmpty(),
+//   body('email', 'Email is Invalid').isEmail(),
+//   body('password', 'Password is Required').notEmpty(),
+//   body('password', 'Password Must Not Be Less Than 5').isLength({ min: 5 }),
+//   body('password', 'Password Must Contain at least 1 Number').matches(/^(?=.*\d)(?=.*[a-z])[0-9a-z]{5,}$/, "i")
+//   // Add more validations as needed
+// );
 //app.use(validator());
 
 

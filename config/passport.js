@@ -53,18 +53,15 @@ passport.use('local.login', new LocalStrategy({
     passReqToCallback: true
 }, (req, email, password, done) => {
 
-    User.findOne({'email':email}, (err, user) => {
-        if(err){
+    User.findOne({'email': email})
+        .then(user => {
+            if (!user || !user.validPassword(password)) {
+                const messages = ['Email Does Not Exist Or Password is Invalid'];
+                return done(null, false, req.flash('error', messages));
+            }
+            return done(null, user);
+        })
+        .catch(err => {
             return done(err);
-        }
-        
-        var messages = [];
-        
-        if(!user || !user.validPassword(password)){
-            messages.push('Email Does Not Exist Or Password is Invalid')
-            return done(null, false, req.flash('error', messages));
-        }
-        
-        return done(null, user); 
-    });
+        });
 }));
