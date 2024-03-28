@@ -1,13 +1,13 @@
-<% layout('layout2') %>
+<%- layout('layout2') -%>
 
 <div id="wrapper">
 
-    <% include ../partials/sidebar %>
+    <%- include ('../partials/sidebar') -%>
 
 
     <div id="page-content-wrapper">
       
-       <% include ../partials/navbar %>
+       <%- include ('../partials/navbar') -%>
        
         <div class="container-fluid main_body">
               
@@ -22,18 +22,9 @@
            
            
             <div class="bodyDiv">
-                <!-- <% if(noErrors) {%>
-                    <div class="alert alert-success">
-                       <a href="#" class="close" data-dismiss="alert" aria-label="close">
-                           &times;
-                       </a>
-                       <%= success %>
-
-                    </div>
-                <% } %> -->
                
                 <h4>Register Company</h4>
-                
+
                 <form method="POST" action="/company/create">
 
                     <div class="form-group ">
@@ -108,10 +99,11 @@
                     </div>
 
                 </form>
+                
             </div>
         </div>
     </div>
 
 </div>
 
-<!--<script src="/js/validate.js"></script>-->
+

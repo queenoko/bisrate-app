@@ -58,6 +58,7 @@ app.use(session({
   app.use(passport.session())
 
   require('./routes/user')(app, passport)
+  require('./routes/company')(app)
 
 // run server
 const port = 3000
